@@ -8,5 +8,12 @@
 </head>
 <body>
 <h1>メニュー画面を表示</h1>
+<div><a href="TaskListServlet">TODOタスク一覧</a></div>
+<div><a href="TaskInsertServlet">TODOタスク登録</a></div>
+
+<form action="LogoutServlet" method="post">
+
+<input type="submit" value="ログアウト">
+</form>
 </body>
 </html>

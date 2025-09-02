@@ -8,5 +8,38 @@
 </head>
 <body>
 <h1>ToDoタスク一覧画面を表示</h1>
+<table border="1">
+	<thead>
+		<tr>
+			<th>タスクID</th>
+			<th>タスク名称</th>
+			<th>タスク内容</th>
+			<th>タスク期限</th>
+			<th>最終更新日</th>
+			<th>タスク担当</th>
+			<th>タスク状況</th>
+			<th>詳細画面</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>内容1</td>
+			<td>内容2</td>
+			
+			<td>内容1</td>
+			<td>内容2</td>
+			
+			<td>内容1</td>
+			<td>内容2</td>
+			
+			<td>内容1</td>
+			<td>内容2</td>
+		</tr>
+	</tbody>
+</table>
+<div><a href="TaskInsertServlet">新規登録へ</a></div>
+<div><a href="MenuServlet">メニューへ</a></div>
+
+
 </body>
 </html>
