@@ -43,4 +43,61 @@ task_seq       INTEGER 	    UNIQUE NOT NULL,
 task_progress  BOOLEAN       NOT NULL
 );
 
+INSERT INTO login VALUES ('田中', 'tanaka01');
+
+INSERT INTO login VALUES ('鈴木', 'suzuki02');
+
+INSERT INTO login VALUES ('山本', 'yamamoto03');
+
+INSERT INTO login VALUES ('佐藤', 'satou04');
+
+INSERT INTO login VALUES ('中田', 'nakata05');
+
+taskstatus
+
+INSERT INTO taskstatus VALUES (0, '未着手', 1,  true);
+
+
+INSERT INTO taskstatus VALUES (1, '着手', 2,  true);
+
+
+INSERT INTO taskstatus VALUES (2, '凍結', 4,  true);
+
+
+INSERT INTO taskstatus VALUES (3, '中断', 5,  false);
+
+
+INSERT INTO taskstatus VALUES (9, '完了', 3,  false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
