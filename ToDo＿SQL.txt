@@ -1,0 +1,46 @@
+C:\Users\user>psql -U postgres
+ユーザ postgres のパスワード:sql
+
+方法1
+一度ログアウト、ログインアンドデーターベースをshopに切り替え
+-- psqlを終了（Ctrl+D または \q）
+\q
+
+-- shopデータベースにログイン
+psql -U postgres -d todotask
+
+方法2(データベース内でshopに切り替え)
+\c todotask
+
+
+
+CREATE DATABASE todotask
+
+
+CREATE TABLE login
+(user_id   VARCHAR(64) PRIMARY KEY,
+user_pass VARCHAR(64)  NOT NULL
+
+);
+
+
+CREATE TABLE taskinfo
+(user_id   SERIAL PRIMARY KEY,
+task_name VARCHAR(50)  NOT NULL,
+task_contents VARCHAR(100)  NOT NULL,
+task_limitdate DATE  NOT NULL,
+task_update TIMESTAMP  NOT NULL,
+task_delete TIMESTAMP  ,
+task_user VARCHAR(20)  NOT NULL,
+task_status INTEGER  NOT NULL (外部キー)
+);
+
+
+CREATE TABLE taskstatus
+(task_status   INTEGER      PRIMARY KEY,
+task_label     VARCHAR(10)  NOT NULL,
+task_seq       INTEGER 	    UNIQUE NOT NULL,
+task_progress  BOOLEAN       NOT NULL
+);
+
+
