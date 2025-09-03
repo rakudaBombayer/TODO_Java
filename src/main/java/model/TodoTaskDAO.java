@@ -82,7 +82,7 @@ public class TodoTaskDAO {
     
   
 
-        public List<TaskInfo> getAllTasks() {
+     public List<TaskInfo> getAllTasks() {
             List<TaskInfo> taskList = new ArrayList<>();
 
             String sql = "SELECT * FROM taskinfo ORDER BY task_id";
@@ -117,7 +117,92 @@ public class TodoTaskDAO {
 
             return taskList;
         }
-    }
+     
+     public boolean getUpdate(String task_name, String task_contents, String task_limitdate,
+             String task_user, int task_status, int task_id) {
+     	try {
+     			Class.forName("org.postgresql.Driver");
+     	} catch (ClassNotFoundException e) {
+     	throw new IllegalStateException("JDBCドライバを読み込めませんでした", e);
+     		}
+     	String sql = "UPDATE taskinfo SET task_name = ?, task_contents = ?, task_limitdate = ?, task_update = CURRENT_TIMESTAMP, task_user = ?, task_status = ? WHERE task_id = ?";
+
+
+     	try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+     			PreparedStatement pStmt = conn.prepareStatement(sql)) {
+
+     		pStmt.setString(1, task_name);
+     		pStmt.setString(2, task_contents);
+     		pStmt.setDate(3, java.sql.Date.valueOf(task_limitdate)); // "YYYY-MM-DD"形式
+     		pStmt.setString(4, task_user);
+     		
+     		pStmt.setInt(5, task_status);
+     		pStmt.setInt(6, task_id);
+     		
+     		int result = pStmt.executeUpdate();
+     		return result == 1;
+
+     		} catch (SQLException e) {
+     			e.printStackTrace();
+     			return false;
+     		}
+     }
+     
+     public boolean getDelete(int taskId) {
+     	try {
+     			Class.forName("org.postgresql.Driver");
+     	} catch (ClassNotFoundException e) {
+     		throw new IllegalStateException("JDBCドライバを読み込めませんでした", e);
+     		}
+     	String sql = "DELETE FROM taskinfo WHERE task_id = ?";
+
+     	try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+     			PreparedStatement pStmt = conn.prepareStatement(sql)) {
+
+     		pStmt.setInt(1, taskId);
+     		
+     		
+     		int result = pStmt.executeUpdate();
+     		return result == 1;
+
+     		} catch (SQLException e) {
+     			e.printStackTrace();
+     			return false;
+     		}
+     }
+     
+     public TaskInfo findById(int taskId) {
+    	    TaskInfo task = null;
+
+    	    String sql = "SELECT * FROM taskinfo WHERE task_id = ?";
+
+    	    try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+    	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+    	        stmt.setInt(1, taskId);
+    	        ResultSet rs = stmt.executeQuery();
+
+    	        if (rs.next()) {
+    	            task = new TaskInfo(
+    	                String.valueOf(rs.getInt("task_id")),
+    	                rs.getString("task_name"),
+    	                rs.getString("task_contents"),
+    	                rs.getString("task_limitdate"),
+    	                rs.getString("task_update"),
+    	                rs.getString("task_delete"),
+    	                rs.getString("task_user"),
+    	                String.valueOf(rs.getInt("task_status"))
+    	            );
+    	        }
+
+    	    } catch (SQLException e) {
+    	        e.printStackTrace();
+    	    }
+
+    	    return task;
+    	}
+
+}
     	
 
 

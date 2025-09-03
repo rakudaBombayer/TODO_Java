@@ -34,8 +34,21 @@
             <td><c:out value="${task.taskUpdate}"/></td>
             <td><c:out value="${task.taskUser}"/></td>
             <td><c:out value="${task.taskStatus}"/></td>
-            <td><a href="TaskDetailServlet?taskId=${task.taskId}">詳細</a></td>
+            
+            <td>
+            <c:choose>
+                <c:when test="${task.taskStatus == 'true'}">
+                	<a href="TaskUpdateServlet?taskId=${task.taskId}">変更</a>
+                    <a href="TaskDeleteServlet?taskId=${task.taskId}">変更・削除</a>                
+                </c:when>
+                <c:otherwise>
+                    <a href="TaskUpdateServlet?taskId=${task.taskId}">変更</a>
+                    <a href="TaskDeleteServlet?taskId=${task.taskId}">変更・削除</a>
+                </c:otherwise>
+            </c:choose>
+        	</td>         
         </tr>
+        
     </c:forEach>
 	</tbody>
 	

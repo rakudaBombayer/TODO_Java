@@ -4,16 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ToDoタスク詳細画面を表示(新規登録)</title>
+<title>ToDoタスク詳細画面を表示(変更・削除)</title>
 </head>
 <body>
-<h1>ToDoタスク詳細画面を表示(新規登録)</h1>
+<h1>ToDoタスク詳細画面を表示(変更・削除)</h1>
+<div>変更・削除</div>
 
-<form action="TaskInsertServlet" method="post">
+
+<form action="TaskUpdateServlet" method="post">
 <table border="1">
   <tr>
     <th>タスクID</th>
-    <th>(新規)</th>
+    <th>(変更・削除)</th>
   </tr>
   <tr>
     <td>タスク名称</td>
@@ -44,9 +46,16 @@
   	</td>
   </tr>
 </table>
-<input type="submit" value="登録">
+<input type="hidden" name="taskId" value="${task.taskId}">
+<input type="submit" value="変更">
 </form>
 
+<form action="TaskDeleteServlet" method="post">
+<input type="hidden" name="taskId" value="${task.taskId}">
+<input type="submit" value="削除">
+</form>
+
+<p>taskId: ${task.taskId}</p>
 <div><a href="TaskListServlet">タスク一覧へ</a></div>
 </body>
 </html>
