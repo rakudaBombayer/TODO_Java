@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,21 +23,22 @@
 			<th>詳細画面</th>
 		</tr>
 	</thead>
+
 	<tbody>
-		<tr>
-			<td>内容1</td>
-			<td>内容2</td>
-			
-			<td>内容1</td>
-			<td>内容2</td>
-			
-			<td>内容1</td>
-			<td>内容2</td>
-			
-			<td>内容1</td>
-			<td>内容2</td>
-		</tr>
+    <c:forEach var="task" items="${taskList}">
+        <tr>
+            <td><c:out value="${task.taskId}"/></td>
+            <td><c:out value="${task.taskName}"/></td>
+            <td><c:out value="${task.taskContents}"/></td>
+            <td><c:out value="${task.taskLimitdate}"/></td>
+            <td><c:out value="${task.taskUpdate}"/></td>
+            <td><c:out value="${task.taskUser}"/></td>
+            <td><c:out value="${task.taskStatus}"/></td>
+            <td><a href="TaskDetailServlet?taskId=${task.taskId}">詳細</a></td>
+        </tr>
+    </c:forEach>
 	</tbody>
+	
 </table>
 <div><a href="TaskInsertServlet">新規登録へ</a></div>
 <div><a href="MenuServlet">メニューへ</a></div>

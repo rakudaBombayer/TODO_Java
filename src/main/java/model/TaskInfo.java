@@ -15,9 +15,11 @@ public class TaskInfo {
 	private String task_user;
 	private String task_status;
 	
-	public TaskInfo(String tasku_id, String task_name) {
+	public TaskInfo(String task_id, String task_name, String task_contents,
+            String task_limitdate, String task_update, String task_delete,
+            String task_user, String task_status) {
 		
-		this.task_id = tasku_id;
+		this.task_id = task_id;
 		
 		this.task_name = task_name;
 		this.task_contents = task_contents;
@@ -41,5 +43,13 @@ public class TaskInfo {
 	
 	public String getTaskUser() {return task_user;}
 	public String getTaskStatus() {return task_status;}
+	
+	public void setTaskStatus(String task_status) {
+	    this.task_status = task_status;
+	}
+
+	public void setTaskDelete(String task_delete) {
+	    this.task_delete = task_delete;
+	}
 	
 }

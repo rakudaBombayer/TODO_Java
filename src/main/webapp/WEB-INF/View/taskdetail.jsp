@@ -14,8 +14,43 @@
 <div>タスク内容</div>
 
 <form action="TaskInsertServlet" method="post">
+<table border="1">
+  <tr>
+    <th>タスクID</th>
+    <th>(新規)</th>
+  </tr>
+  <tr>
+    <td>タスク名称</td>
+    <td><input type="text" name="task_name"></td>
+  </tr>
+  <tr>
+    <td>タスク内容</td>
+    <td><input type="text" name="task_contents"></td>
+  </tr>
+  <tr>
+    <td>タスク期限</td>
+    <td><input type="date" name="task_limitdate"></td>
+  </tr>
+  <tr>
+    <td>タスク担当者</td>
+    <td><input type="text" name="task_user"></td>
+  </tr>
+  <tr>
+    <td>タスク状況</td>
+    <td>
+		<select name="task_status">
+  			<option value="0">未着手</option>
+  			<option value="1">着手</option>
+  			<option value="2">凍結</option>
+  			<option value="3">中断</option>
+  			<option value="9">完了</option>
+		</select>
+  	</td>
+  </tr>
+</table>
 <input type="submit" value="登録">
 </form>
+
 <form action="TaskUpdateServlet" method="post">
 <input type="submit" value="変更">
 </form>
