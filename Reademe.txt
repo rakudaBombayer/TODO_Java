@@ -8,3 +8,4 @@ tas_seqはプルダウンの表示順に使う
 プルダウン(optionタグの)の数と順番を決める。
 
 
+task_progressの値(true false)で変更・変更削除の値を決める
