@@ -154,7 +154,7 @@ public class TodoTaskDAO {
      	} catch (ClassNotFoundException e) {
      		throw new IllegalStateException("JDBCドライバを読み込めませんでした", e);
      		}
-     	String sql = "DELETE FROM taskinfo WHERE task_id = ?";
+     	String sql = "UPDATE taskinfo SET task_delete = CURRENT_TIMESTAMP WHERE task_id = ?";
 
      	try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
      			PreparedStatement pStmt = conn.prepareStatement(sql)) {

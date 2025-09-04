@@ -37,12 +37,13 @@
             
             <td>
             <c:choose>
-                <c:when test="${task.taskStatus == 'true'}">
-                	<a href="TaskUpdateServlet?taskId=${task.taskId}">変更</a>
-                    <a href="TaskDeleteServlet?taskId=${task.taskId}">変更・削除</a>                
-                </c:when>
-                <c:otherwise>
-                    <a href="TaskUpdateServlet?taskId=${task.taskId}">変更</a>
+                <c:when test="${task.taskDelete != null}">
+        			<span style="color:gray;">削除済み</span>
+    			</c:when>
+    			<c:when test="${task.taskStatus >= 3}">
+        			<a href="TaskUpdateServlet?taskId=${task.taskId}">変更</a>
+    			</c:when>
+                <c:otherwise>                
                     <a href="TaskDeleteServlet?taskId=${task.taskId}">変更・削除</a>
                 </c:otherwise>
             </c:choose>
@@ -53,8 +54,12 @@
 	</tbody>
 	
 </table>
-<div><a href="TaskInsertServlet">新規登録へ</a></div>
-<div><a href="MenuServlet">メニューへ</a></div>
+<div style="margin: 16px 0;"><a href="TaskInsertServlet">新規登録へ</a></div>
+<div style="margin-bottom: 16px;"><a href="MenuServlet">メニューへ</a></div>
+<hr>
+<div style="text-align: right;">
+	<div>ログインユーザー名:<c:out value="${login.userId}"/></div>
+</div>
 
 
 </body>

@@ -8,6 +8,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Login;
 import model.TodoTaskDAO;
 
 @WebServlet("/LoginServlet")
@@ -40,8 +42,17 @@ protected void doPost(HttpServletRequest request,
 		boolean isLogin = dao.isLoginValid(user_id, user_pass);
 		
 		if (isLogin) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/View/menu.jsp");
-			dispatcher.forward(request, response);
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/View/menu.jsp");
+//			
+//			dispatcher.forward(request, response);
+			
+			Login loginUser = new Login(user_id, user_pass);
+			HttpSession session = request.getSession();
+			session.setAttribute("login", loginUser);
+
+			// メニュー画面へ遷移
+			response.sendRedirect("MenuServlet");
+
 			
 			System.out.println("ログイン成功: " + user_id + " / " + user_pass);
 		} else {

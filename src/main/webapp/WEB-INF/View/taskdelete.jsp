@@ -50,7 +50,7 @@
 <input type="submit" value="変更">
 </form>
 
-<form action="TaskDeleteServlet" method="post">
+<form action="TaskDeleteServlet" method="post" onsubmit="return confirmDelete()">
 <input type="hidden" name="taskId" value="${task.taskId}">
 <input type="submit" value="削除">
 </form>
@@ -59,3 +59,11 @@
 <div><a href="TaskListServlet">タスク一覧へ</a></div>
 </body>
 </html>
+
+
+
+<script>
+  function confirmDelete() {
+    return confirm("本当にこのタスクを削除しますか？");
+  }
+</script>

@@ -9,6 +9,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Login;
 import model.TaskInfo;
 import model.TodoTaskDAO;
 
@@ -24,13 +26,33 @@ protected void doGet(HttpServletRequest request,
 		
 		TodoTaskDAO dao = new TodoTaskDAO();
 		List<TaskInfo> taskList = dao.getAllTasks();
+		
+		
+		
+//		String userId = request.getParameter("user_id");
+//		String userPass = request.getParameter("user_pass");
+		
+		// セッションからログイン情報を取得
+	    HttpSession session = request.getSession();
+	    Login userLogin = (Login) session.getAttribute("login");
+	    
+	    if (userLogin == null) {
+		    response.sendRedirect("LoginServlet");
+		    return;
+		}
+	    
 
+
+		
+		
 		// JSPに渡す
+		request.setAttribute("login", userLogin);
 		request.setAttribute("taskList", taskList);
     
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/View/tasklist.jsp");
 		dispatcher.forward(request, response);
 		
+
 	}
 	
 	protected void doPost(HttpServletRequest request,
