@@ -201,7 +201,48 @@ public class TodoTaskDAO {
 
     	    return task;
     	}
+     
+     
+     //tasklistServletで使う予定
+     public TaskCheck getStatus(int task_status) {
+    	 TaskCheck taskCheck = null;
+    	 
+         try {
+             // JDBCドライバのロード
+             Class.forName("org.postgresql.Driver");
+             System.out.println("データベースと接続成功");
+         } catch (ClassNotFoundException e) {
+         	System.out.println("データベースと接続失敗");
+             throw new IllegalStateException("JDBCドライバを読み込めませんでした", e);
+             
+         }
 
+         // データベース接続とクエリ実行(別のログインサーブレットに書く内容かも)
+         try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+             String sql = "SELECT task_status, task_label, task_seq, task_progress FROM taskstatus WHERE task_status = ?";
+             PreparedStatement pStmt = conn.prepareStatement(sql);
+             pStmt.setInt(1, task_status);
+
+
+             ResultSet rs = pStmt.executeQuery();
+             
+             System.out.println(rs);
+             if (rs.next()) {
+                 // ResultSetからデータを取得してTaskCheckにセット
+            	 int status = rs.getInt("task_status");
+                 String label = rs.getString("task_label");
+                 int seq = rs.getInt("task_seq");
+                 boolean progress = rs.getBoolean("task_progress");
+
+                 taskCheck = new TaskCheck(status, label, seq, progress);
+             }
+
+         } catch (SQLException e) {
+             e.printStackTrace();
+             return null;
+         }
+         return taskCheck; // 一致するユーザーがいれば true を返す
+     }
 }
     	
 

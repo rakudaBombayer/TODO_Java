@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Login;
+import model.TaskCheck;
 import model.TaskInfo;
 import model.TodoTaskDAO;
 
@@ -41,7 +42,18 @@ protected void doGet(HttpServletRequest request,
 		    return;
 		}
 	    
-
+	    
+	    //お試し
+	    for (TaskInfo task : taskList) {
+	        int status = Integer.parseInt(task.getTaskStatus()); // ← 型変換
+	        TaskCheck check = dao.getStatus(status);
+	        if (check != null) {
+	            task.setTaskLabel(check.getLabel()); // ← getterが必要
+	        } else {
+	            task.setTaskLabel("不明なステータス");
+	        }
+	    }
+	    //お試し
 
 		
 		

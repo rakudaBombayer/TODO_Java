@@ -33,7 +33,7 @@
             <td><c:out value="${task.taskLimitdate}"/></td>
             <td><c:out value="${task.taskUpdate}"/></td>
             <td><c:out value="${task.taskUser}"/></td>
-            <td><c:out value="${task.taskStatus}"/></td>
+            <td><c:out value="${task.taskLabel}"/></td>
             
             <td>
             <c:choose>

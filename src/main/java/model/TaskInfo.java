@@ -15,6 +15,9 @@ public class TaskInfo {
 	private String task_user;
 	private String task_status;
 	
+	//お試し↓
+	private String taskLabel;
+	
 	public TaskInfo(String task_id, String task_name, String task_contents,
             String task_limitdate, String task_update, String task_delete,
             String task_user, String task_status) {
@@ -52,4 +55,12 @@ public class TaskInfo {
 	    this.task_delete = task_delete;
 	}
 	
+	//お試し↓
+	public String getTaskLabel() {
+	    return taskLabel;
+	}
+	//お試し↓
+	public void setTaskLabel(String taskLabel) {
+	    this.taskLabel = taskLabel;
+	}
 }
