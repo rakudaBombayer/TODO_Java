@@ -49,6 +49,8 @@ protected void doGet(HttpServletRequest request,
 	        TaskCheck check = dao.getStatus(status);
 	        if (check != null) {
 	            task.setTaskLabel(check.getLabel()); // ← getterが必要
+	            task.setTask_progress(check.getProgress());
+	            System.out.println("task_progress: " + check.getProgress());
 	        } else {
 	            task.setTaskLabel("不明なステータス");
 	        }

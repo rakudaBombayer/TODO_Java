@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,29 +38,37 @@
             <td><c:out value="${task.taskLabel}"/></td>
             
             <td>
-            <c:choose>
-                <c:when test="${task.taskDelete != null}">
-        			<span style="color:gray;">削除済み</span>
-    			</c:when>
-    			<c:when test="${task.taskStatus >= 3}">
-        			<a href="TaskUpdateServlet?taskId=${task.taskId}">変更</a>
-    			</c:when>
-                <c:otherwise>                
-                    <a href="TaskDeleteServlet?taskId=${task.taskId}">変更・削除</a>
-                </c:otherwise>
-            </c:choose>
+            <c:if test="${task.taskDelete != null}">
+  				<span style="color:gray;">削除済み</span>
+			</c:if>
+
+			<c:if test="${task.taskDelete == null}">
+  			<c:if test="${not task.task_progress}">
+    			<a href="TaskUpdateServlet?taskId=${task.taskId}">変更へ</a>
+    			
+  				</c:if>
+  			<c:if test="${task.task_progress}">
+    				<a href="TaskDeleteServlet?taskId=${task.taskId}">変更・削除へ</a>
+    				
+  			</c:if>
+			</c:if>
         	</td>         
         </tr>
         
     </c:forEach>
+ 
 	</tbody>
 	
 </table>
+
+
+
+
 <div style="margin: 16px 0;"><a href="TaskInsertServlet">新規登録へ</a></div>
 <div style="margin-bottom: 16px;"><a href="MenuServlet">メニューへ</a></div>
 <hr>
 <div style="text-align: right;">
-	<div>ログインユーザー名:<c:out value="${login.userId}"/></div>
+	<div>ログインユーザー:<c:out value="${login.userId}"/></div>
 </div>
 
 
