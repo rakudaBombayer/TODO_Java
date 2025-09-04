@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -8,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.TaskCheck;
 import model.TodoTaskDAO;
 
 //ToDoタスクの新規登録処理を行うサーブレット
@@ -19,6 +21,13 @@ private static final long serialVersionUID = 1L;
 protected void doGet(HttpServletRequest request,
 		HttpServletResponse response)
 		throws ServletException, IOException {
+		
+	// task_status の選択肢を取得　お試し↓
+		TodoTaskDAO TodoTaskDAO = new TodoTaskDAO();
+		List<TaskCheck> statusList = TodoTaskDAO.getAvailableStatuses(); // task_progress = true のみ取得
+
+		request.setAttribute("taskStatusList", statusList);
+	//お試し↑
 	
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/View/taskdetail.jsp");
 		dispatcher.forward(request, response);

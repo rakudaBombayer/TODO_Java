@@ -243,6 +243,33 @@ public class TodoTaskDAO {
          }
          return taskCheck; // 一致するユーザーがいれば true を返す
      }
+     
+     public List<TaskCheck> getAvailableStatuses() {
+    	    List<TaskCheck> statusList = new ArrayList<>();
+
+    	    try {
+    	        Class.forName("org.postgresql.Driver");
+    	        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+    	            String sql = "SELECT task_status, task_label, task_seq, task_progress FROM taskstatus ORDER BY task_seq";
+    	            PreparedStatement pStmt = conn.prepareStatement(sql);
+    	            ResultSet rs = pStmt.executeQuery();
+
+    	            while (rs.next()) {
+    	                int status = rs.getInt("task_status");
+    	                String label = rs.getString("task_label");
+    	                int seq = rs.getInt("task_seq");
+    	                boolean progress = rs.getBoolean("task_progress");
+
+    	                statusList.add(new TaskCheck(status, label, seq, progress));
+    	            }
+    	        }
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	    }
+
+    	    return statusList;
+    	}
+
 }
     	
 
