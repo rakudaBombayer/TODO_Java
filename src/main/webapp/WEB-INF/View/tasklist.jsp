@@ -68,7 +68,7 @@
 <div style="margin-bottom: 16px;"><a href="MenuServlet">メニューへ</a></div>
 <hr>
 <div style="text-align: right;">
-	<div>ログインユーザー:<c:out value="${login.userId}"/></div>
+	<div>ログインユーザー名:<c:out value="${login.userId}"/></div>
 </div>
 
 

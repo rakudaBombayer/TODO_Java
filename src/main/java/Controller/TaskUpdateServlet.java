@@ -1,6 +1,9 @@
 package Controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
@@ -38,7 +41,7 @@ protected void doGet(HttpServletRequest request,
 		
 		// task_status の選択肢を取得　お試し↓
 		TodoTaskDAO TodoTaskDAO = new TodoTaskDAO();
-		List<TaskCheck> statusList = TodoTaskDAO.getAvailableStatuses(); // 
+		List<TaskCheck> statusList = TodoTaskDAO.getAvailableStatuses(); 
 
 		request.setAttribute("taskStatusList", statusList);
 		//お試し↑
@@ -68,12 +71,6 @@ protected void doPost(HttpServletRequest request,
 		int task_id = Integer.parseInt(taskIdStr);
 		
 		
-		//ここから始める。Updateの続きから（そもそもデータベースからidを取り出す必要があるのか？調べる）
-//		TaskInfo task = TodoTaskDAO.findById(task_id); // DBから1件取得
-//		request.setAttribute("task", task);
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("taskUpdate.jsp");
-//		dispatcher.forward(request, response);
-//		
 
 		
 		System.out.println("タスク変更送信: " + task_name + " / " + task_contents );
@@ -91,6 +88,39 @@ protected void doPost(HttpServletRequest request,
 		    // エラーメッセージ表示など
 		}
 		
+		//お試し
+		List<String> errors = new ArrayList<>();
+
+		if (task_name == null || task_name.trim().isEmpty()) {
+		    errors.add("タスク名称が空白です");
+		} else if (task_name.length() > 50) {
+		    errors.add("タスク名称が長すぎます");
+		}
+
+		if (task_contents == null || task_contents.trim().isEmpty()) {
+		    errors.add("タスク内容が空白です");
+		} else if (task_contents.length() > 100) {
+		    errors.add("タスク内容が長すぎます");
+		}
+
+		if (task_limitdate == null || task_limitdate.trim().isEmpty()) {
+		    errors.add("タスク期限が空白です");
+		} else {
+		    try {
+		        LocalDate limitDate = LocalDate.parse(task_limitdate);
+		        if (task_status == 2 && limitDate.isBefore(LocalDate.now())) { // 進行中なら過去日付NG
+		            errors.add("タスク期限が過去日付です");
+		        }
+		    } catch (DateTimeParseException e) {
+		        errors.add("タスク期限の入力形式が違います");
+		    }
+		}
+
+		if (task_user == null || task_user.trim().isEmpty()) {
+		    errors.add("タスク担当者が空白です");
+		} else if (task_user.length() > 20) {
+		    errors.add("タスク担当者が長すぎます");
+		}
 
 		
 	}

@@ -7,7 +7,7 @@
 <title>ログイン画面を表示</title>
 </head>
 <body>
-<h1>ログイン画面を表示</h1>
+<h1 style="color: red;">※※  ToDoタスク管理  ※※</h1>
 
 <body>
 <form action="LoginServlet" method="post">

@@ -17,33 +17,33 @@
 <table border="1">
   <tr>
     <th>タスクID</th>
-    <th>(変更・削除)</th>
+    <th>${task.taskId}</th>
   </tr>
   <tr>
     <td>タスク名称</td>
-    <td><input type="text" name="task_name"></td>
+    <td><input type="text" name="task_name" value="${task.taskName}"></td>
   </tr>
   <tr>
     <td>タスク内容</td>
-    <td><input type="text" name="task_contents"></td>
+    <td><input type="text" name="task_contents" value="${task.taskContents}"></td>
   </tr>
   <tr>
     <td>タスク期限</td>
-    <td><input type="date" name="task_limitdate"></td>
+    <td><input type="date" name="task_limitdate" value="${task.taskLimitdate}"></td>
   </tr>
   <tr>
     <td>タスク担当者</td>
-    <td><input type="text" name="task_user"></td>
+    <td><input type="text" name="task_user" value="${task.taskUser}"></td>
   </tr>
   <tr>
     <td>タスク状況</td>
     <td>
-		<select name="task_status">
-  			<c:forEach var="status" items="${taskStatusList}">
-    			<option value="${status.status}">
-      			<c:out value="${status.label}" />
-    		</option>
-  			</c:forEach>
+		<select name="task_status"> 
+		<c:forEach var="status" items="${taskStatusList}"> 
+			<option value="${status.status}"> 
+				<c:out value="${status.label}" /> 
+			</option> 
+		</c:forEach> 
 		</select>
   	</td>
   </tr>
@@ -57,11 +57,21 @@
 <input type="submit" value="削除">
 </form>
 
-<p>taskId: ${task.taskId}</p>
+
 <div><a href="TaskListServlet">タスク一覧へ</a></div>
 </body>
 </html>
 
+<c:if test="${not empty errors}">
+<hr>
+  <div style="color:red;">
+    <ul>
+      <c:forEach var="error" items="${errors}">
+        <li>${error}</li>
+      </c:forEach>
+    </ul>
+  </div>
+</c:if>
 
 
 <script>
