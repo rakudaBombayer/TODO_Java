@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -8,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.TaskCheck;
 import model.TaskInfo;
 import model.TodoTaskDAO;
 
@@ -33,7 +35,13 @@ protected void doGet(HttpServletRequest request,
 				request.setAttribute("task", task); // JSPに渡す
 			}
 			//tasklist.jspからtaskdelete.jspにtaskidのデータを渡すための処理(仮)
-	
+			
+			// task_status の選択肢を取得　お試し↓
+			TodoTaskDAO TodoTaskDAO = new TodoTaskDAO();
+			List<TaskCheck> statusList = TodoTaskDAO.getAvailableStatuses(); // 
+
+			request.setAttribute("taskStatusList", statusList);
+			//お試し↑
 	
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/View/taskdelete.jsp");
 		dispatcher.forward(request, response);

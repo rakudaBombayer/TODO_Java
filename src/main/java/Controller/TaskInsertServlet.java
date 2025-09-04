@@ -24,7 +24,7 @@ protected void doGet(HttpServletRequest request,
 		
 	// task_status の選択肢を取得　お試し↓
 		TodoTaskDAO TodoTaskDAO = new TodoTaskDAO();
-		List<TaskCheck> statusList = TodoTaskDAO.getAvailableStatuses(); // task_progress = true のみ取得
+		List<TaskCheck> statusList = TodoTaskDAO.getAvailableStatuses(); // 
 
 		request.setAttribute("taskStatusList", statusList);
 	//お試し↑

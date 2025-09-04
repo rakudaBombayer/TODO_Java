@@ -37,11 +37,11 @@
     <td>タスク状況</td>
     <td>
 		<select name="task_status">
-  			<option value="0">未着手</option>
-  			<option value="1">着手</option>
-  			<option value="2">凍結</option>
-  			<option value="3">中断</option>
-  			<option value="9">完了</option>
+  		<c:forEach var="status" items="${taskStatusList}">
+    		<option value="${status.status}">
+      			<c:out value="${status.label}" />
+    		</option>
+  		</c:forEach>
 		</select>
   	</td>
   </tr>
